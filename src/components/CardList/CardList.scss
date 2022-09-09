@@ -1,4 +1,19 @@
 .card-container {
     height: 50%;
     margin-top: 50px;
+    
+}
+
+
+@media screen and (min-width: 620px){
+    .card-container{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (min-width: 930px){
+    .card-container{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
 }

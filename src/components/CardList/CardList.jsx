@@ -1,10 +1,13 @@
 import Card from "../Card/Card";
 import "./CardList.scss";
 
-const CardList = () => {
+const CardList = ({beers}) => {
+
   return (
     <div className="card-container">
-      <Card />
+      {beers.map((beer) =>(
+        <Card key={beer.id} name={beer.name} description={beer.description} abv={beer.abv} img={beer.image_url}/>
+      ))}
     </div>
   )
 }
