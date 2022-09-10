@@ -6,7 +6,7 @@ const Navbar = ({handleInput, handleFilter}) => {
   return (
     <div className="navbar">
       <h1>BrewDog</h1>
-      <FiltersList handleInput={handleInput} handleFilter={handleFilter}/>
+      <FiltersList handleFilter={handleFilter}/>
       <Searchbox handleInput={handleInput}/>
     </div>
   )
