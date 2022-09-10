@@ -1,14 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.scss';
 import CardList from './components/CardList/CardList';
 import Navbar from './components/Navbar/Navbar';
 import beers from './data/beers';
 
 function App() {
-  const [beersList] = useState(beers);
+  const [beersList, setBeersList] = useState(beers);
   const [searchText, setSearchText] = useState("");
   const [filterText, setFilterText] = useState("all");
-  
+
+  useEffect(() => {
+    fetch("https://api.punkapi.com/v2/beers")
+    .then(response => response.json())
+    .then(json => setBeersList(json))
+  }, [])
+ 
 
   const handleFilter = (e) => setFilterText(e.target.value);
 
