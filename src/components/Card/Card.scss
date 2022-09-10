@@ -1,18 +1,63 @@
+@use "../../assets/sass/variables" as *;
+
 .card{
+    border: 2px solid rgb(219, 219, 219);
     margin: 20px auto;
-    border: 2px solid black;
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 20px;
     height: 400px;
     width: 250px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     text-align: center;
+    background: rgb(7,0,129);
+    background: linear-gradient(0deg, rgba(7,0,129,1) 0%, rgba(94,172,255,1) 35%, rgba(213,248,255,1) 100%); 
+    box-shadow: -3px 3px 10px #585858;
 
+    &:hover {
+        border: 4px solid orange;
+        height: 392px;
+        width: 242px;
+    }
+
+    &__img-container {
+        width: 150px;
+        height: 35%;
+        // background: #eeeeee;
+    }
     &__img {
-        max-width: 200px;
-        max-height: 150px;
+        max-width: 90%;
+        max-height: 90%
+    }
+    &__content {
+        height: 60%;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    &__heading {
+        color: black;
+        font-size: 1.6rem;
+        margin: 0.5rem;
+    }
+
+    &__bottom {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    &__button {
+        background-color: white;
+        border: 2px solid black;
+        border-radius: 20px;
+        padding: 3px 30px;
+    }
+
+    &__description {
+        font-size: 0.9rem;
     }
 }
