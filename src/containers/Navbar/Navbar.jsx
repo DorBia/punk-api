@@ -1,6 +1,6 @@
 import { useState } from "react"
-import FiltersList from "../FiltersList/FiltersList"
-import Searchbox from "../Searchbox/SearchBox"
+import FiltersList from "../../components/FiltersList/FiltersList"
+import Searchbox from "../../components/Searchbox/SearchBox"
 import "./Navbar.scss"
 import logo from "../../assets/images/output-onlinepngtools.png"
 import { Link } from "react-router-dom"
