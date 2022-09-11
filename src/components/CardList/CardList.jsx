@@ -8,7 +8,7 @@ const CardList = ({beers, pageCount, handlePageChange}) => {
     <div className="container">
       <div className="card-container">
         {beers.map((beer) =>(
-          <Card key={beer.id} name={beer.name} description={beer.description} abv={beer.abv} img={beer.image_url}/>
+          <Card key={beer.id} name={beer.name} description={beer.description} abv={beer.abv} img={beer.image_url} id={beer.id}/>
         ))}
       </div>
       <ReactPaginate

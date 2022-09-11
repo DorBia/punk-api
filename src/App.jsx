@@ -1,8 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.scss';
+import BeerDetails from './components/BeerDetails/BeerDetails';
 import CardList from './components/CardList/CardList';
 import Navbar from './components/Navbar/Navbar';
 import beers from './data/beers';
+import useFetch from './hooks/useFetch';
 
 function App() {
   const [beersList, setBeersList] = useState(beers);
@@ -10,11 +13,10 @@ function App() {
   const [url, setUrl] = useState("https://api.punkapi.com/v2/beers?page=1&per_page=80");
   const [page, setPage] = useState(0);
 
-  useEffect(() => {
-    fetch(url)
-    .then(response => response.json())
-    .then(json => setBeersList(json))
-  }, [url])
+  const {data, isPending} = useFetch(url)
+  if (!isPending && beersList === beers) {
+    setBeersList(data)
+  }
 
   const handleInput = (e) => {
     const term = e.target.value.toLowerCase();
@@ -65,10 +67,19 @@ function App() {
   const handlePageChange = (e) => setPage(e.selected);
 
   return (
-    <div className="app">
-      <Navbar handleInput={handleInput} handleFilter={handleFilter}/>
-      <CardList beers={display[0]} handlePageChange={handlePageChange} pageCount={display[1]}/>
-    </div>
+    <Router>
+      <div className="app">
+        <Navbar handleInput={handleInput} handleFilter={handleFilter}/>
+        <Routes>
+          <Route exact path="/" element={
+            <CardList beers={display[0]} handlePageChange={handlePageChange} pageCount={display[1]}/>
+          }></Route>
+          <Route path="/beer/:id" element={
+            <BeerDetails />
+          }></Route>
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
