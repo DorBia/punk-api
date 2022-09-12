@@ -4,11 +4,9 @@ import { Link, useParams } from "react-router-dom"
 
 import "./BeerDetails.scss"
 
-const BeerDetails = ({setUrl, beer}) => {
+const BeerDetails = ({setUrl, beer, isPending}) => {
 
     const { id } = useParams();
-
-    // const {data: beer, isPending} = useFetch("https://api.punkapi.com/v2/beers/" +id)
 
     useEffect(() => {
       setUrl(`https://api.punkapi.com/v2/beers/${id}`);
@@ -18,8 +16,8 @@ const BeerDetails = ({setUrl, beer}) => {
 
   return (
     <>
-      {!beer && <div className="loading-screen">Loading...</div>}
-      {beer && <>{beer.map((beer) =>(
+      {isPending && <div className="loading-screen">Loading...</div>}
+      {!isPending && <>{beer.map((beer) =>(
         <div key={beer.id}>
           <div className="beer">
               <img src={beer.image_url} alt="beer" className="beer__img"/>

@@ -1,4 +1,4 @@
-
+import "./Menu.scss"
 import FiltersList from "../../components/FiltersList/FiltersList"
 import Searchbox from "../../components/Searchbox/SearchBox"
 import menu from "../../assets/images/hamburger-menu-svgrepo-com.svg"

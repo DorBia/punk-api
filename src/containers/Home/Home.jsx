@@ -1,6 +1,4 @@
-
 import ReactPaginate from "react-paginate";
-// import useFetch from "../../hooks/useFetch";
 import Card from "../../components/Card/Card";
 import "./Home.scss";
 import { useEffect, useState } from "react";
