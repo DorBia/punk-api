@@ -19,6 +19,18 @@ const useFetch = (url) => {
         })
       }, [url])
     return { data, isPending };
+//     useEffect(() => {
+//       const fetchData = async (url) => {
+
+//       const res = await fetch(url);
+
+//       const json = await res.json();
+
+//       setData(json);
+//   }
+//   fetchData(url)
+// }, [url])
+//     console.log(data);
 }
 
 export default useFetch

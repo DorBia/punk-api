@@ -3,11 +3,12 @@ import useFetch from "../../hooks/useFetch";
 
 import "./BeerDetails.scss"
 
-const BeerDetails = ({handleMenu}) => {
+const BeerDetails = () => {
 
     const { id } = useParams();
 
     const {data: beer, isPending} = useFetch("https://api.punkapi.com/v2/beers/" +id)
+    
 
 
   return (
@@ -41,7 +42,7 @@ const BeerDetails = ({handleMenu}) => {
           </div>
           <div className="beer__bottom">
             <Link to="/">
-              <button className="beer__button" onClick={() => handleMenu(true)}>Go Back</button>
+              <button className="beer__button">Go Back</button>
             </Link>
           </div>
         </div>

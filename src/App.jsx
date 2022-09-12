@@ -9,16 +9,6 @@ function App() {
   const [filterText, setFilterText] = useState("all");
   const [url, setUrl] = useState("https://api.punkapi.com/v2/beers?page=1&per_page=80");
   const [page, setPage] = useState(0);
-  const [isHome, setIsHome] = useState(true);
-  const [isActive, setIsActive] = useState(false)
-
-  const handleMenu = (state) => {
-    setIsHome(state);
-    setIsActive(false)
-  }
-
-
-
 
   const handleInput = (e) => {
     const term = e.target.value.toLowerCase();
@@ -39,13 +29,13 @@ function App() {
   return (
     <Router>
       <div className="app">
-        <Navbar handleInput={handleInput} handleFilter={handleFilter} isHome={isHome} handleMenu={handleMenu} isActive={isActive} setIsActive={setIsActive}/>
+        <Navbar />
         <Routes>
           <Route exact path="/" element={
-            <Home url={url} filterText={filterText} page={page} setPage={setPage} handleMenu={handleMenu}/>
+            <Home  handleInput={handleInput} handleFilter={handleFilter} url={url} filterText={filterText} page={page} setPage={setPage}/>
           }></Route>
           <Route path="/beer/:id" element={
-            <BeerDetails handleMenu={handleMenu}/>
+            <BeerDetails />
           }></Route>
         </Routes>
       </div>

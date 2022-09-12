@@ -6,10 +6,14 @@ import "./Home.scss";
 import { useState } from "react";
 import sun from "../../assets/images/sun-svgrepo-com-2.svg"
 import snow from "../../assets/images/snowflake-cold-svgrepo-com.svg"
+import FiltersList from "../../components/FiltersList/FiltersList"
+import Searchbox from "../../components/Searchbox/SearchBox"
+import menu from "../../assets/images/hamburger-menu-svgrepo-com.svg"
 
-const Home = ({filterText, url, page, setPage, handleMenu}) => {
+const Home = ({filterText, url, page, setPage, handleInput, handleFilter}) => {
 
   const [isSummer, setIsSummer] = useState(false)
+  const [isActive, setIsActive] = useState(false);
 
   const {data: beersList, isPending} = useFetch(url)
 
@@ -51,26 +55,34 @@ const Home = ({filterText, url, page, setPage, handleMenu}) => {
 
   const handleThemeChange = () => setIsSummer(!isSummer)
 
+  const handleClick = () => setIsActive(!isActive)
+
   return (
     <div className="container">
       {isPending && <div className="loading-screen">Loading...</div>}
       {beersList && <>
-      <div className="card-container">
-        <img src={isSummer ? snow : sun} alt="theme switch" className="card-container__button" onClick={handleThemeChange}></img>
-        {display[0].map((beer) =>(
-          <Card key={beer.id} name={beer.name} description={beer.description} abv={beer.abv} img={beer.image_url} id={beer.id} handleMenu={handleMenu} isSummer={isSummer}/>
-        ))}
-      </div>
-      <ReactPaginate
-          className={"pagination"}
-          pageCount={display[1]}
-          previousLabel={"Previous"}
-          previousLinkClassName={"previous"}
-          nextLabel={"Next"}
-          nextLinkClassName={"next"}
-          onPageChange={handlePageChange}
-          activeClassName={"active"}
-        />
+        {!isActive && <img src={menu} alt="menu" className="menu" onClick={handleClick}/>}
+        {isActive && <div className="menu--open">
+          <p className="menu__close" onClick={handleClick}>x</p>
+          <FiltersList handleFilter={handleFilter}/>
+          <Searchbox handleInput={handleInput}/>
+        </div>}
+        <div className="card-container">
+          <img src={isSummer ? snow : sun} alt="theme switch" className="card-container__button" onClick={handleThemeChange} />
+          {display[0].map((beer) =>(
+            <Card key={beer.id} name={beer.name} description={beer.description} abv={beer.abv} img={beer.image_url} id={beer.id} isSummer={isSummer}/>
+          ))}
+        </div>
+        <ReactPaginate
+            className={"pagination"}
+            pageCount={display[1]}
+            previousLabel={"Previous"}
+            previousLinkClassName={"previous"}
+            nextLabel={"Next"}
+            nextLinkClassName={"next"}
+            onPageChange={handlePageChange}
+            activeClassName={"active"}
+          />
       </>}
     </div>
   )
