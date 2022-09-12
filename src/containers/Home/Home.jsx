@@ -7,28 +7,51 @@ import sun from "../../assets/images/sun-svgrepo-com-2.svg"
 import snow from "../../assets/images/snowflake-cold-svgrepo-com.svg"
 
 
-const Home = ({ page, setPage, beersList, setUrl, isPending, setIsPending}) => {
+const Home = ({ page, setPage, setUrl, isPending, setIsPending, beersList, urlAll}) => {
 
-  const [filterText, setFilterText] = useState("all");
+  const [filterText, setFilterText] = useState();
   const [isSummer, setIsSummer] = useState(false)
+  // const [beersList, setBeersList] = useState(); 
 
   useEffect(() => {
     setIsPending(true)
-    setUrl("https://api.punkapi.com/v2/beers?page=1&per_page=80")
-  }, [setIsPending, setUrl]);
+    setUrl(urlAll)
+  }, []);
+
+  // useEffect(() => {
+  //     const fetchAll = async () => {
+  //     try {
+  //       const url1 = "https://api.punkapi.com/v2/beers?page=1&per_page=80"
+  //       const url2 = "https://api.punkapi.com/v2/beers?page=2&per_page=80"
+  //       const url3 = "https://api.punkapi.com/v2/beers?page=3&per_page=80"
+  //       const url4 = "https://api.punkapi.com/v2/beers?page=4&per_page=80"
+  //       const url5 = "https://api.punkapi.com/v2/beers?page=5&per_page=80"
+
+  //       const res = await Promise.all([fetch(url1), fetch(url2), fetch(url3), fetch(url4), fetch(url5)])
+  //       const json = await Promise.all(res.map(res => res.json()));
+  //       const list = await Promise.all(json[0].concat(json[1], json[2], json[3], json[4]))
+  //       setBeersList(list)
+  //       setIsPending(false)
+  //     } catch (err) {
+  //       console.log(err)
+  //     }
+  //     }
+  //     fetchAll()
+  //   }, [setIsPending])
 
   // for theme change
   const handleThemeChange = () => setIsSummer(!isSummer)
 
   // for handling input from search box
   const handleInput = (e) => {
+    setPage(0)
     const term = e.target.value.toLowerCase();
     if (Number(term) > 0 && Number(term) <= 325){
-      setUrl(`https://api.punkapi.com/v2/beers/${term}`)
+      setUrl([`https://api.punkapi.com/v2/beers/${term}`])
     } else if (term) {
-      setUrl(`https://api.punkapi.com/v2/beers?page=1&per_page=80&beer_name=${term}`)
+      setUrl([`https://api.punkapi.com/v2/beers?page=1&per_page=80&beer_name=${term}`])
     } else {
-      setUrl(`https://api.punkapi.com/v2/beers?page=1&per_page=80`);
+      setUrl(urlAll);
     }
   }
 

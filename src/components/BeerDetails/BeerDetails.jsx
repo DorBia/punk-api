@@ -10,8 +10,8 @@ const BeerDetails = ({setUrl, beer, isPending, setIsPending}) => {
 
     useEffect(() => {
       setIsPending(true)
-      setUrl(`https://api.punkapi.com/v2/beers/${id}`);
-    }, [setIsPending, setUrl, id]);
+      setUrl([`https://api.punkapi.com/v2/beers/${id}`]);
+    }, []);
 
 
 
