@@ -4,13 +4,14 @@ import { Link, useParams } from "react-router-dom"
 
 import "./BeerDetails.scss"
 
-const BeerDetails = ({setUrl, beer, isPending}) => {
+const BeerDetails = ({setUrl, beer, isPending, setIsPending}) => {
 
     const { id } = useParams();
 
     useEffect(() => {
+      setIsPending(true)
       setUrl(`https://api.punkapi.com/v2/beers/${id}`);
-    }, [setUrl, id]);
+    }, [setIsPending, setUrl, id]);
 
 
 

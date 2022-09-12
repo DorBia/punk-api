@@ -7,12 +7,15 @@ import sun from "../../assets/images/sun-svgrepo-com-2.svg"
 import snow from "../../assets/images/snowflake-cold-svgrepo-com.svg"
 
 
-const Home = ({ page, setPage, beersList, setUrl}) => {
+const Home = ({ page, setPage, beersList, setUrl, isPending, setIsPending}) => {
 
   const [filterText, setFilterText] = useState("all");
   const [isSummer, setIsSummer] = useState(false)
 
-  useEffect(() => setUrl("https://api.punkapi.com/v2/beers?page=1&per_page=80"), [setUrl]);
+  useEffect(() => {
+    setIsPending(true)
+    setUrl("https://api.punkapi.com/v2/beers?page=1&per_page=80")
+  }, [setIsPending, setUrl]);
 
   // for theme change
   const handleThemeChange = () => setIsSummer(!isSummer)
@@ -76,7 +79,8 @@ const Home = ({ page, setPage, beersList, setUrl}) => {
 
   return (
     <div className="container">
-      {beersList && <>
+      {isPending && <div className="loading-screen">Loading...</div>}
+      {!isPending && <>
         <Menu handleThemeChange={handleThemeChange} isSummer={isSummer} handleInput={handleInput} handleFilter={handleFilter} />
         <div className="card-container">
         <img src={isSummer ? snow : sun} alt="theme switch" className="card-container__button" onClick={handleThemeChange} />
