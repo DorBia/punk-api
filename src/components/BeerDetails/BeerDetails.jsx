@@ -1,19 +1,24 @@
+import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom"
-import useFetch from "../../hooks/useFetch";
+// import useFetch from "../../hooks/useFetch";
 
 import "./BeerDetails.scss"
 
-const BeerDetails = () => {
+const BeerDetails = ({setUrl, beer}) => {
 
     const { id } = useParams();
 
-    const {data: beer, isPending} = useFetch("https://api.punkapi.com/v2/beers/" +id)
-    
+    // const {data: beer, isPending} = useFetch("https://api.punkapi.com/v2/beers/" +id)
+
+    useEffect(() => {
+      setUrl(`https://api.punkapi.com/v2/beers/${id}`);
+    }, [setUrl, id]);
+
 
 
   return (
     <>
-      {isPending && <div className="loading-screen">Loading...</div>}
+      {!beer && <div className="loading-screen">Loading...</div>}
       {beer && <>{beer.map((beer) =>(
         <div key={beer.id}>
           <div className="beer">

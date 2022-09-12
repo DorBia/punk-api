@@ -1,22 +1,41 @@
 
 import ReactPaginate from "react-paginate";
-import useFetch from "../../hooks/useFetch";
+// import useFetch from "../../hooks/useFetch";
 import Card from "../../components/Card/Card";
 import "./Home.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Menu from "../../components/Menu/Menu"
 import sun from "../../assets/images/sun-svgrepo-com-2.svg"
 import snow from "../../assets/images/snowflake-cold-svgrepo-com.svg"
-import FiltersList from "../../components/FiltersList/FiltersList"
-import Searchbox from "../../components/Searchbox/SearchBox"
-import menu from "../../assets/images/hamburger-menu-svgrepo-com.svg"
 
-const Home = ({filterText, url, page, setPage, handleInput, handleFilter}) => {
 
+const Home = ({ page, setPage, beersList, setUrl}) => {
+
+  const [filterText, setFilterText] = useState("all");
   const [isSummer, setIsSummer] = useState(false)
-  const [isActive, setIsActive] = useState(false);
 
-  const {data: beersList, isPending} = useFetch(url)
+  useEffect(() => setUrl("https://api.punkapi.com/v2/beers?page=1&per_page=80"), [setUrl]);
 
+  // for theme change
+  const handleThemeChange = () => setIsSummer(!isSummer)
+
+  // for handling input from search box
+  const handleInput = (e) => {
+    const term = e.target.value.toLowerCase();
+    if (Number(term) > 0 && Number(term) <= 325){
+      setUrl(`https://api.punkapi.com/v2/beers/${term}`)
+    } else if (term) {
+      setUrl(`https://api.punkapi.com/v2/beers?page=1&per_page=80&beer_name=${term}`)
+    } else {
+      setUrl(`https://api.punkapi.com/v2/beers?page=1&per_page=80`);
+    }
+  }
+
+  //for handling the filter
+  const handleFilter = (e) => {
+    setFilterText(e.target.value)
+    setPage(0)
+  }
 
   const getFilteredList = (filterBy) => {
     if(beersList) {
@@ -37,6 +56,7 @@ const Home = ({filterText, url, page, setPage, handleInput, handleFilter}) => {
     }
   }
 
+  // pages
   const perPage = 12;
   const seen = page * perPage;
 
@@ -48,29 +68,22 @@ const Home = ({filterText, url, page, setPage, handleInput, handleFilter}) => {
     }
   }
 
+  // filtered list
   const filteredByFilter = getFilteredList(filterText)
 
+  // handle what to display
   const display = handleDisplay(filteredByFilter)
+
   const handlePageChange = (e) => setPage(e.selected);
-
-  const handleThemeChange = () => setIsSummer(!isSummer)
-
-  const handleClick = () => setIsActive(!isActive)
 
   return (
     <div className="container">
-      {isPending && <div className="loading-screen">Loading...</div>}
       {beersList && <>
-        {!isActive && <img src={menu} alt="menu" className="menu" onClick={handleClick}/>}
-        {isActive && <div className="menu--open">
-          <p className="menu__close" onClick={handleClick}>x</p>
-          <FiltersList handleFilter={handleFilter}/>
-          <Searchbox handleInput={handleInput}/>
-        </div>}
+        <Menu handleThemeChange={handleThemeChange} isSummer={isSummer} handleInput={handleInput} handleFilter={handleFilter} />
         <div className="card-container">
-          <img src={isSummer ? snow : sun} alt="theme switch" className="card-container__button" onClick={handleThemeChange} />
+        <img src={isSummer ? snow : sun} alt="theme switch" className="card-container__button" onClick={handleThemeChange} />
           {display[0].map((beer) =>(
-            <Card key={beer.id} name={beer.name} description={beer.description} abv={beer.abv} img={beer.image_url} id={beer.id} isSummer={isSummer}/>
+            <Card setUrl={setUrl} key={beer.id} name={beer.name} description={beer.description} abv={beer.abv} img={beer.image_url} id={beer.id} isSummer={isSummer}/>
           ))}
         </div>
         <ReactPaginate
