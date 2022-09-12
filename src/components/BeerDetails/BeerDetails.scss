@@ -60,6 +60,29 @@
         }
     }
 
+    &__bottom {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 40px;
+    }
+
+    &__button {
+        padding: 25px 45px;
+        background-color: transparent;
+        font-weight: bold;
+        border-radius: 20px;
+        border: 2px solid gray;
+        font-size: 1.1rem;
+        cursor: pointer;
+
+        &:hover {
+            background-color: gray;
+            color: white;
+            border: none;
+        }
+    }
+
     @media screen and (min-width: 1100px) {
         width: 90vw;
         max-width: 1400px;
@@ -101,6 +124,10 @@
         &__tips {
             align-items: center;
             padding: 0 20px;
+        }
+
+        &__button {
+            column-span: all;
         }
     }
 }

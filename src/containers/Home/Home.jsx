@@ -3,8 +3,13 @@ import ReactPaginate from "react-paginate";
 import useFetch from "../../hooks/useFetch";
 import Card from "../../components/Card/Card";
 import "./Home.scss";
+import { useState } from "react";
+import sun from "../../assets/images/sun-svgrepo-com-2.svg"
+import snow from "../../assets/images/snowflake-cold-svgrepo-com.svg"
 
-const Home = ({filterText, url, page, setPage}) => {
+const Home = ({filterText, url, page, setPage, handleMenu}) => {
+
+  const [isSummer, setIsSummer] = useState(false)
 
   const {data: beersList, isPending} = useFetch(url)
 
@@ -44,13 +49,16 @@ const Home = ({filterText, url, page, setPage}) => {
   const display = handleDisplay(filteredByFilter)
   const handlePageChange = (e) => setPage(e.selected);
 
+  const handleThemeChange = () => setIsSummer(!isSummer)
+
   return (
     <div className="container">
       {isPending && <div className="loading-screen">Loading...</div>}
       {beersList && <>
       <div className="card-container">
+        <img src={isSummer ? snow : sun} alt="theme switch" className="card-container__button" onClick={handleThemeChange}></img>
         {display[0].map((beer) =>(
-          <Card key={beer.id} name={beer.name} description={beer.description} abv={beer.abv} img={beer.image_url} id={beer.id}/>
+          <Card key={beer.id} name={beer.name} description={beer.description} abv={beer.abv} img={beer.image_url} id={beer.id} handleMenu={handleMenu} isSummer={isSummer}/>
         ))}
       </div>
       <ReactPaginate

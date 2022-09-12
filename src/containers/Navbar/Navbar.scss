@@ -23,6 +23,7 @@
         background-color: rgba(180, 180, 180, 0.618);
         border-radius: 0 0 0 10px;
         animation: slide 0.8s forwards;
+        z-index: 1;
     }
 
     &__close {

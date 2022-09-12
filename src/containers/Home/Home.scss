@@ -1,6 +1,16 @@
 .card-container {
     height: 50%;
     margin-top: 50px;
+    max-width: 1600px;
+    position: relative;
+
+    &__button {
+        position: absolute;
+        right: 30px;
+        top: -50px;
+        height: 40px;
+        cursor: pointer;
+    }
     
 }
 
@@ -41,6 +51,11 @@
     .card-container{
         display: grid;
         grid-template-columns: 1fr 1fr;
+
+        &__button {
+            right: 100px;
+            top: -100px;
+        }
     }
 
 
@@ -62,5 +77,10 @@
         grid-template-columns: 1fr 1fr 1fr 1fr;
         max-width: 1600px;
         margin: 30px auto;
+
+        &__button {
+            right: 100px;
+            top: -80px;
+        }
     }
 }
