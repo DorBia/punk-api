@@ -7,20 +7,17 @@ import Navbar from './containers/Navbar/Navbar';
 
 function App() {
 
-  const urlAll = ["https://api.punkapi.com/v2/beers?page=1&per_page=80", 
-                  "https://api.punkapi.com/v2/beers?page=2&per_page=80", 
-                  "https://api.punkapi.com/v2/beers?page=3&per_page=80", 
-                  "https://api.punkapi.com/v2/beers?page=4&per_page=80", 
-                  "https://api.punkapi.com/v2/beers?page=5&per_page=80"]
 
-  const [url, setUrl] = useState(urlAll);
+  const [url, setUrl] = useState(["https://api.punkapi.com/v2/beers?page=1&per_page=80"]);
   const [page, setPage] = useState(0);
   const [beersList, setBeersList] = useState();
   const [isPending, setIsPending] = useState(true)
 
   
   useEffect(() => {
+    setTimeout(() => {
       const fetchData = async (url) => {
+        // setIsPending(true)
         try {
           if(url.length === 1) {
             const res = await fetch(url[0]);
@@ -33,11 +30,13 @@ function App() {
             setBeersList(list)
           } 
           setIsPending(false)
+          setPage(0)
         } catch (err) {
           console.log(err)
         }
       }
       fetchData(url)
+    }, 500)
     }, [url])
     
 
@@ -48,7 +47,7 @@ function App() {
         <Navbar setUrl={setUrl}/>
         <Routes>
           <Route exact path="/" element={
-            <Home setUrl={setUrl} beersList={beersList} page={page} setPage={setPage} isPending={isPending} setIsPending={setIsPending} urlAll={urlAll}/>
+            <Home setUrl={setUrl} beersList={beersList} page={page} updatePage={(val) => setPage(val)} isPending={isPending} setIsPending={setIsPending}/>
           }></Route>
           <Route path="/beer/:id" element={
             <BeerDetails beer={beersList} setUrl={setUrl} isPending={isPending} setIsPending={setIsPending}/>

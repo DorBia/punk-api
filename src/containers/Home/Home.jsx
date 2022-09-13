@@ -7,14 +7,19 @@ import sun from "../../assets/images/sun-svgrepo-com-2.svg"
 import snow from "../../assets/images/snowflake-cold-svgrepo-com.svg"
 
 
-const Home = ({ page, setPage, setUrl, isPending, setIsPending, beersList, urlAll}) => {
+const Home = ({ page, updatePage, setUrl, isPending, setIsPending, beersList}) => {
 
   const [filterText, setFilterText] = useState();
   const [isSummer, setIsSummer] = useState(false)
   // const [beersList, setBeersList] = useState(); 
+  
+  const urlAll = ["https://api.punkapi.com/v2/beers?page=1&per_page=80", 
+  "https://api.punkapi.com/v2/beers?page=2&per_page=80", 
+  "https://api.punkapi.com/v2/beers?page=3&per_page=80", 
+  "https://api.punkapi.com/v2/beers?page=4&per_page=80", 
+  "https://api.punkapi.com/v2/beers?page=5&per_page=80"]
 
   useEffect(() => {
-    setIsPending(true)
     setUrl(urlAll)
   }, []);
 
@@ -44,7 +49,6 @@ const Home = ({ page, setPage, setUrl, isPending, setIsPending, beersList, urlAl
 
   // for handling input from search box
   const handleInput = (e) => {
-    setPage(0)
     const term = e.target.value.toLowerCase();
     if (Number(term) > 0 && Number(term) <= 325){
       setUrl([`https://api.punkapi.com/v2/beers/${term}`])
@@ -58,7 +62,7 @@ const Home = ({ page, setPage, setUrl, isPending, setIsPending, beersList, urlAl
   //for handling the filter
   const handleFilter = (e) => {
     setFilterText(e.target.value)
-    setPage(0)
+    updatePage(0)
   }
 
   const getFilteredList = (filterBy) => {
@@ -98,7 +102,7 @@ const Home = ({ page, setPage, setUrl, isPending, setIsPending, beersList, urlAl
   // handle what to display
   const display = handleDisplay(filteredByFilter)
 
-  const handlePageChange = (e) => setPage(e.selected);
+  const handlePageChange = (e) => updatePage(e.selected);
 
   return (
     <div className="container">
@@ -108,7 +112,7 @@ const Home = ({ page, setPage, setUrl, isPending, setIsPending, beersList, urlAl
         <div className="card-container">
         <img src={isSummer ? snow : sun} alt="theme switch" className="card-container__button" onClick={handleThemeChange} />
           {display[0].map((beer) =>(
-            <Card setUrl={setUrl} key={beer.id} name={beer.name} description={beer.description} abv={beer.abv} img={beer.image_url} id={beer.id} isSummer={isSummer}/>
+            <Card setUrl={setUrl} key={beer.id} name={beer.name} description={beer.description} abv={beer.abv} img={beer.image_url} id={beer.id} isSummer={isSummer} setIsPending={setIsPending}/>
           ))}
         </div>
         <ReactPaginate

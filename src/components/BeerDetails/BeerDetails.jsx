@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom"
-// import useFetch from "../../hooks/useFetch";
 
 import "./BeerDetails.scss"
 
@@ -9,11 +8,8 @@ const BeerDetails = ({setUrl, beer, isPending, setIsPending}) => {
     const { id } = useParams();
 
     useEffect(() => {
-      setIsPending(true)
       setUrl([`https://api.punkapi.com/v2/beers/${id}`]);
-    }, []);
-
-
+    }, [id, setUrl]);
 
   return (
     <>
@@ -21,7 +17,7 @@ const BeerDetails = ({setUrl, beer, isPending, setIsPending}) => {
       {!isPending && <>{beer.map((beer) =>(
         <div key={beer.id}>
           <div className="beer">
-              <img src={beer.image_url} alt="beer" className="beer__img"/>
+              <img src={beer.image_url} alt="" className="beer__img"/>
               <div className="beer__main">
                 <h1 className="beer__name">{beer.name}</h1>
                 <h3 className="beer__tagline">"{beer.tagline}"</h3>
@@ -46,7 +42,7 @@ const BeerDetails = ({setUrl, beer, isPending, setIsPending}) => {
           </div>
           <div className="beer__bottom">
             <Link to="/">
-              <button className="beer__button">Go Back</button>
+              <button className="beer__button" onClick={() => setIsPending(true)}>Go Back</button>
             </Link>
           </div>
         </div>
