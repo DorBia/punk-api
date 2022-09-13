@@ -1,53 +1,27 @@
 import ReactPaginate from "react-paginate";
-import Card from "../../components/Card/Card";
-import "./Home.scss";
 import { useEffect, useState } from "react";
+//containers and components
 import Menu from "../../components/Menu/Menu"
+import Card from "../../components/Card/Card";
+//style and images
 import sun from "../../assets/images/sun-svgrepo-com-2.svg"
 import snow from "../../assets/images/snowflake-cold-svgrepo-com.svg"
+import "./Home.scss";
 
 
-const Home = ({ page, updatePage, setUrl, isPending, setIsPending, beersList}) => {
+const Home = ({ page, setPage, setUrl, isPending, setIsPending, beersList, urlAll}) => {
 
   const [filterText, setFilterText] = useState();
-  const [isSummer, setIsSummer] = useState(false)
-  // const [beersList, setBeersList] = useState(); 
+  const [isSummer, setIsSummer] = useState(false) // just for theme change
   
-  const urlAll = ["https://api.punkapi.com/v2/beers?page=1&per_page=80", 
-  "https://api.punkapi.com/v2/beers?page=2&per_page=80", 
-  "https://api.punkapi.com/v2/beers?page=3&per_page=80", 
-  "https://api.punkapi.com/v2/beers?page=4&per_page=80", 
-  "https://api.punkapi.com/v2/beers?page=5&per_page=80"]
+  // eslint-disable-next-line
+  useEffect(() => setUrl(urlAll),[]); // setting url to all 325 beers every time someone goes back to the home page
 
-  useEffect(() => {
-    setUrl(urlAll)
-  }, []);
-
-  // useEffect(() => {
-  //     const fetchAll = async () => {
-  //     try {
-  //       const url1 = "https://api.punkapi.com/v2/beers?page=1&per_page=80"
-  //       const url2 = "https://api.punkapi.com/v2/beers?page=2&per_page=80"
-  //       const url3 = "https://api.punkapi.com/v2/beers?page=3&per_page=80"
-  //       const url4 = "https://api.punkapi.com/v2/beers?page=4&per_page=80"
-  //       const url5 = "https://api.punkapi.com/v2/beers?page=5&per_page=80"
-
-  //       const res = await Promise.all([fetch(url1), fetch(url2), fetch(url3), fetch(url4), fetch(url5)])
-  //       const json = await Promise.all(res.map(res => res.json()));
-  //       const list = await Promise.all(json[0].concat(json[1], json[2], json[3], json[4]))
-  //       setBeersList(list)
-  //       setIsPending(false)
-  //     } catch (err) {
-  //       console.log(err)
-  //     }
-  //     }
-  //     fetchAll()
-  //   }, [setIsPending])
-
-  // for theme change
+  // for theme change - toggling it between two themes
   const handleThemeChange = () => setIsSummer(!isSummer)
 
-  // for handling input from search box
+  // for handling input from search box - by using API, sending request to App.jsx to update the data with new url
+  // this way search is working along with filter
   const handleInput = (e) => {
     const term = e.target.value.toLowerCase();
     if (Number(term) > 0 && Number(term) <= 325){
@@ -59,12 +33,14 @@ const Home = ({ page, updatePage, setUrl, isPending, setIsPending, beersList}) =
     }
   }
 
-  //for handling the filter
+  //for handling the filter - setting filter value and going back to first page 
+  //(to not be stuck on page 26 when having just 3 pages back)
   const handleFilter = (e) => {
     setFilterText(e.target.value)
-    updatePage(0)
+    setPage(0)
   }
 
+  // switch between dropdown option and filter the list, else return whe whole list
   const getFilteredList = (filterBy) => {
     if(beersList) {
       switch (filterBy) {
@@ -84,25 +60,23 @@ const Home = ({ page, updatePage, setUrl, isPending, setIsPending, beersList}) =
     }
   }
 
-  // pages
-  const perPage = 12;
+  // create pages, 24 beers per page
+  const perPage = 24;
   const seen = page * perPage;
-
+  //check how many pages is needed and return the sliced data, ready for pages along with the total page count
   const handleDisplay = () => {
     if(beersList) {
-      const displayBeers = filteredByFilter.slice(seen, seen + perPage);
-      const pageCount = Math.ceil(filteredByFilter.length / perPage);
-      return [displayBeers, pageCount]
+      const beersPerPage = getFilteredList(filterText).slice(seen, seen + perPage);
+      const pageCount = Math.ceil(getFilteredList(filterText).length / perPage);
+      return [beersPerPage, pageCount]
     }
   }
 
-  // filtered list
-  const filteredByFilter = getFilteredList(filterText)
-
   // handle what to display
-  const display = handleDisplay(filteredByFilter)
+  const display = handleDisplay()
 
-  const handlePageChange = (e) => updatePage(e.selected);
+  //handle what page to display
+  // const handlePageChange = ;
 
   return (
     <div className="container">
@@ -112,7 +86,12 @@ const Home = ({ page, updatePage, setUrl, isPending, setIsPending, beersList}) =
         <div className="card-container">
         <img src={isSummer ? snow : sun} alt="theme switch" className="card-container__button" onClick={handleThemeChange} />
           {display[0].map((beer) =>(
-            <Card setUrl={setUrl} key={beer.id} name={beer.name} description={beer.description} abv={beer.abv} img={beer.image_url} id={beer.id} isSummer={isSummer} setIsPending={setIsPending}/>
+            <Card 
+              setUrl={setUrl} 
+              key={beer.id} 
+              beer={beer}
+              isSummer={isSummer} 
+              setIsPending={setIsPending}/>
           ))}
         </div>
         <ReactPaginate
@@ -122,7 +101,7 @@ const Home = ({ page, updatePage, setUrl, isPending, setIsPending, beersList}) =
             previousLinkClassName={"previous"}
             nextLabel={"Next"}
             nextLinkClassName={"next"}
-            onPageChange={handlePageChange}
+            onPageChange={(e) => setPage(e.selected)}
             activeClassName={"active"}
           />
       </>}

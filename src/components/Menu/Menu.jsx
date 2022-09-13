@@ -1,12 +1,16 @@
-import "./Menu.scss"
+import { useState } from "react"
+//components
 import FiltersList from "../../components/FiltersList/FiltersList"
 import Searchbox from "../../components/Searchbox/SearchBox"
+//style and images
 import menu from "../../assets/images/hamburger-menu-svgrepo-com.svg"
-import { useState } from "react"
+import "./Menu.scss"
+
 
 const Menu = ({handleInput, handleFilter}) => {
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(false); // for menu opening/closing
 
+  // open/close menu
   const handleClick = () => setIsActive(!isActive)
 
   return (<>

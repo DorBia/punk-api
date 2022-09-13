@@ -1,20 +1,31 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom"
-
+//style
 import "./BeerDetails.scss"
 
-const BeerDetails = ({setUrl, beer, isPending, setIsPending}) => {
+const BeerDetails = ({ isPending, setIsPending }) => {
 
     const { id } = useParams();
+    
+  const [ beer, setBeer ] = useState();
 
-    useEffect(() => {
-      setUrl([`https://api.punkapi.com/v2/beers/${id}`]);
-    }, [id, setUrl]);
+  useEffect(() => {
+    setTimeout(() => {
+      const fetchBeer = async() => {
+        const res = await fetch(`https://api.punkapi.com/v2/beers/${id}`)
+        const json = await res.json();
+        setBeer(json[0]);
+        setIsPending(false);
+    }
+      fetchBeer()
+    }, 500)
+      // eslint-disable-next-line
+  }, [id])
 
   return (
     <>
       {isPending && <div className="loading-screen">Loading...</div>}
-      {!isPending && <>{beer.map((beer) =>(
+      {!isPending && beer && <>
         <div key={beer.id}>
           <div className="beer">
               <img src={beer.image_url} alt="" className="beer__img"/>
@@ -46,7 +57,7 @@ const BeerDetails = ({setUrl, beer, isPending, setIsPending}) => {
             </Link>
           </div>
         </div>
-      ))}</>}
+      </>}
     </>
   )
 }

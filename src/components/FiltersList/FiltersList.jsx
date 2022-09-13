@@ -1,6 +1,7 @@
 import "./FiltersList.scss"
 
 const FiltersList = ({handleFilter}) => {
+  
   return (
     <select onChange={handleFilter} className="filter-list">
         <option value="all">All</option>
