@@ -12,6 +12,7 @@ import "./Home.scss";
 const Home = ({ page, setPage, setUrl, isPending, setIsPending, beersList, urlAll}) => {
 
   const [filterText, setFilterText] = useState();
+  const [sortText, setSortText] = useState();
   const [isSummer, setIsSummer] = useState(false) // just for theme change
   
   // eslint-disable-next-line
@@ -40,6 +41,11 @@ const Home = ({ page, setPage, setUrl, isPending, setIsPending, beersList, urlAl
     setPage(0)
   }
 
+  const handleSort = (e) => {
+    setSortText(e.target.value)
+    setPage(0)
+  }
+
   // switch between dropdown option and filter the list, else return whe whole list
   const getFilteredList = (filterBy) => {
     if(beersList) {
@@ -54,9 +60,28 @@ const Home = ({ page, setPage, setUrl, isPending, setIsPending, beersList, urlAl
           return beersList.filter((beer) => beer.ph > 4);
         case "first_brewed":
           return beersList.filter((beer) => Number(beer.first_brewed.slice(3)) > 2010)
-        default:
-          return beersList;
+          default:
+            return beersList.sort((a, b) => a.id > b.id);
       } 
+    }
+  }
+
+  const filteredList = getFilteredList(filterText)
+
+  const getSortedList = (sortBy) => {
+    if(filteredList) {
+      switch(sortBy) {
+        case "a-z":
+          return filteredList.sort((a, b) => a.name > b.name)
+        case "z-a":
+          return filteredList.sort((a, b) => a.name < b.name)
+        case "alc-low":
+          return filteredList.sort((a, b) => a.abv > b.abv)
+        case "alc-high":
+          return filteredList.sort((a, b) => a.abv < b.abv)
+        default:
+          return filteredList.sort((a, b) => a.id > b.id);
+      }
     }
   }
 
@@ -65,8 +90,8 @@ const Home = ({ page, setPage, setUrl, isPending, setIsPending, beersList, urlAl
   const seen = page * perPage;
   //check how many pages is needed and return the sliced data, ready for pages along with the total page count
   const handleDisplay = () => {
-    if(beersList) {
-      const beersPerPage = getFilteredList(filterText).slice(seen, seen + perPage);
+    if(filteredList) {
+      const beersPerPage = getSortedList(sortText).slice(seen, seen + perPage);
       const pageCount = Math.ceil(getFilteredList(filterText).length / perPage);
       return [beersPerPage, pageCount]
     }
@@ -82,7 +107,7 @@ const Home = ({ page, setPage, setUrl, isPending, setIsPending, beersList, urlAl
     <div className="container">
       {isPending && <div className="loading-screen">Loading...</div>}
       {!isPending && <>
-        <Menu handleThemeChange={handleThemeChange} isSummer={isSummer} handleInput={handleInput} handleFilter={handleFilter} />
+        <Menu handleThemeChange={handleThemeChange} isSummer={isSummer} handleInput={handleInput} handleFilter={handleFilter} handleSort={handleSort}/>
         <div className="card-container">
         <img src={isSummer ? snow : sun} alt="theme switch" className="card-container__button" onClick={handleThemeChange} />
           {display[0].map((beer) =>(

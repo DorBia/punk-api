@@ -1,25 +1,24 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom"
 //style
-import "./BeerDetails.scss"
+import "./BeerPage.scss"
 
 const BeerDetails = ({ isPending, setIsPending }) => {
 
-    const { id } = useParams();
+  const { id } = useParams();
     
   const [ beer, setBeer ] = useState();
 
+  // using separate fetch than in App, so it can immediately fetch single ones each time with just going straight to single page url
   useEffect(() => {
-    setTimeout(() => {
-      const fetchBeer = async() => {
-        const res = await fetch(`https://api.punkapi.com/v2/beers/${id}`)
-        const json = await res.json();
-        setBeer(json[0]);
-        setIsPending(false);
+    const fetchBeer = async() => {
+      const res = await fetch(`https://api.punkapi.com/v2/beers/${id}`)
+      const json = await res.json();
+      setBeer(json[0]);
+      setIsPending(false);
     }
-      fetchBeer()
-    }, 500)
-      // eslint-disable-next-line
+    fetchBeer()
+  // eslint-disable-next-line
   }, [id])
 
   return (

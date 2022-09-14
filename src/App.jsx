@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 //components and containers
-import BeerDetails from './components/BeerDetails/BeerDetails';
+import BeerDetails from './containers/BeerPage/BeerPage';
 import Home from './containers/Home/Home';
 import Navbar from './containers/Navbar/Navbar';
 //style
@@ -19,7 +19,7 @@ function App() {
   const [page, setPage] = useState(0); // current page
   const [beersList, setBeersList] = useState(); // actual list of beers
 
-  // fetch api each time url is changing - if it's a single url, fetch only this and set the beersList to the data received
+  // fetch api each time url is changing - when using search, url will be 
   // if url list is 5 long (to fetch all 325 beers) wait for all to be fetched, make one list out of them and set them as beersList
   // go back to page 1, as there might not be page 12 when fetching just one url
   useEffect(() => {
