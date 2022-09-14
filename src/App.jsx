@@ -1,51 +1,72 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import './App.scss';
-import BeerDetails from './components/BeerDetails/BeerDetails';
+//components and containers
+import BeerDetails from './containers/BeerPage/BeerPage';
 import Home from './containers/Home/Home';
 import Navbar from './containers/Navbar/Navbar';
+//style
+import './App.scss';
 
 function App() {
-  const [filterText, setFilterText] = useState("all");
-  const [url, setUrl] = useState("https://api.punkapi.com/v2/beers?page=1&per_page=80");
-  const [page, setPage] = useState(0);
-  const [isHome, setIsHome] = useState(true);
-  const [isActive, setIsActive] = useState(false)
+  const urlAll = ["https://api.punkapi.com/v2/beers?page=1&per_page=80", 
+  "https://api.punkapi.com/v2/beers?page=2&per_page=80", 
+  "https://api.punkapi.com/v2/beers?page=3&per_page=80", 
+  "https://api.punkapi.com/v2/beers?page=4&per_page=80", 
+  "https://api.punkapi.com/v2/beers?page=5&per_page=80"]
 
-  const handleMenu = (state) => {
-    setIsHome(state);
-    setIsActive(false)
-  }
+  const [isPending, setIsPending] = useState(true); //for loading screen
+  const [url, setUrl] = useState(urlAll); // api endpoint
+  const [page, setPage] = useState(0); // current page
+  const [beersList, setBeersList] = useState(); // actual list of beers
 
-
-
-
-  const handleInput = (e) => {
-    const term = e.target.value.toLowerCase();
-    if (Number(term) > 0 && Number(term) <= 325){
-      setUrl(`https://api.punkapi.com/v2/beers/${term}`)
-    } else if (term) {
-      setUrl(`https://api.punkapi.com/v2/beers?page=1&per_page=80&beer_name=${term}`)
-    } else {
-      setUrl(`https://api.punkapi.com/v2/beers?page=1&per_page=80`);
+  // fetch api each time url is changing - when using search, url will be 
+  // if url list is 5 long (to fetch all 325 beers) wait for all to be fetched, make one list out of them and set them as beersList
+  // go back to page 1, as there might not be page 12 when fetching just one url
+  useEffect(() => {
+    const fetchData = async (url) => {
+      try {
+        if(url.length === 1) {
+          const res = await fetch(url[0]);
+          const json = await res.json();
+          setBeersList(json)
+        } else if (url.length === 5) {
+          const res = await Promise.all(url.map(url => fetch(url)))
+          const json = await Promise.all(res.map(res => res.json()));
+          const list = await Promise.all(json[0].concat(json[1], json[2], json[3], json[4]))
+          setBeersList(list)
+        } 
+        setIsPending(false)
+        setPage(0)
+        console.log("worked")
+      } catch (err) {
+        console.log(err)
+      }
     }
-  }
-
-  const handleFilter = (e) => {
-    setFilterText(e.target.value)
-    setPage(0)
-  }
+    fetchData(url)
+  }, [url])
+    
 
   return (
     <Router>
       <div className="app">
-        <Navbar handleInput={handleInput} handleFilter={handleFilter} isHome={isHome} handleMenu={handleMenu} isActive={isActive} setIsActive={setIsActive}/>
+        <Navbar />
         <Routes>
-          <Route exact path="/" element={
-            <Home url={url} filterText={filterText} page={page} setPage={setPage} handleMenu={handleMenu}/>
-          }></Route>
           <Route path="/beer/:id" element={
-            <BeerDetails handleMenu={handleMenu}/>
+            <BeerDetails 
+              isPending={isPending} 
+              setIsPending={setIsPending}
+            />
+          }></Route>
+          <Route path="/" element={
+            <Home 
+              urlAll={urlAll} 
+              setUrl={setUrl} 
+              beersList={beersList} 
+              page={page} 
+              setPage={setPage} 
+              isPending={isPending} 
+              setIsPending={setIsPending}
+            />
           }></Route>
         </Routes>
       </div>

@@ -1,22 +1,33 @@
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom"
-import useFetch from "../../hooks/useFetch";
+//style
+import "./BeerPage.scss"
 
-import "./BeerDetails.scss"
+const BeerDetails = ({ isPending, setIsPending }) => {
 
-const BeerDetails = ({handleMenu}) => {
+  const { id } = useParams();
+    
+  const [ beer, setBeer ] = useState();
 
-    const { id } = useParams();
-
-    const {data: beer, isPending} = useFetch("https://api.punkapi.com/v2/beers/" +id)
-
+  // using separate fetch than in App, so it can immediately fetch single ones each time with just going straight to single page url
+  useEffect(() => {
+    const fetchBeer = async() => {
+      const res = await fetch(`https://api.punkapi.com/v2/beers/${id}`)
+      const json = await res.json();
+      setBeer(json[0]);
+      setIsPending(false);
+    }
+    fetchBeer()
+  // eslint-disable-next-line
+  }, [id])
 
   return (
     <>
       {isPending && <div className="loading-screen">Loading...</div>}
-      {beer && <>{beer.map((beer) =>(
+      {!isPending && beer && <>
         <div key={beer.id}>
           <div className="beer">
-              <img src={beer.image_url} alt="beer" className="beer__img"/>
+              <img src={beer.image_url} alt="" className="beer__img"/>
               <div className="beer__main">
                 <h1 className="beer__name">{beer.name}</h1>
                 <h3 className="beer__tagline">"{beer.tagline}"</h3>
@@ -41,11 +52,11 @@ const BeerDetails = ({handleMenu}) => {
           </div>
           <div className="beer__bottom">
             <Link to="/">
-              <button className="beer__button" onClick={() => handleMenu(true)}>Go Back</button>
+              <button className="beer__button" onClick={() => setIsPending(true)}>Go Back</button>
             </Link>
           </div>
         </div>
-      ))}</>}
+      </>}
     </>
   )
 }

@@ -17,8 +17,9 @@
 .container {
     width: 100%;
     margin: auto;
+    max-width: 1600px;
+    position: relative;
 }
-
 
 .pagination {
     list-style: none;
@@ -57,8 +58,6 @@
             top: -100px;
         }
     }
-
-
     .pagination {
         margin: 30px auto;
         & a {
