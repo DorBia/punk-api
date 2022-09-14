@@ -1,57 +1,59 @@
 .menu {
+  position: absolute;
+  top: -110px;
+  right: 25px;
+  cursor: pointer;
+
+  &--open {
     position: absolute;
-    top: -110px;
-    right: 25px;
+    top: -130px;
+    right: -400px;
+    height: 170px;
+    width: 220px;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color: rgba(180, 180, 180, 0.618);
+    border-radius: 0 0 0 10px;
+    animation: slide 0.8s forwards;
+    z-index: 1;
+
+    @media screen and (min-width: 800px) {
+      width: 300px;
+      align-items: center;
+    }
+
+    @media screen and (min-width: 1600px) {
+      right: 0;
+      animation: none;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    margin-top: 0;
+    font-size: 1.8rem;
+    top: 0;
+    right: 15px;
     cursor: pointer;
-    
+  }
+  @media screen and (min-width: 620px) {
+    top: -102px;
+  }
+  @media screen and (min-width: 1240px) {
+    top: -82px;
+
     &--open {
-        position: absolute;
-        top: -130px;
-        right: -400px;
-        height: 170px;
-        width: 220px;
-        padding: 0 20px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        background-color: rgba(180, 180, 180, 0.618);
-        border-radius: 0 0 0 10px;
-        animation: slide 0.8s forwards;
-        z-index: 1;
-
-        @media screen and (min-width: 800px) {
-            width: 300px;
-            align-items: center;
-        }
-        
-        @media screen and (min-width:1600px) {
-            right: 0;
-            animation: none;
-        }
+      top: -110px;
     }
-
-    &__close {
-        position: absolute;
-        margin-top: 0;
-        font-size: 1.8rem;
-        top: 0;
-        right: 15px;
-        cursor: pointer;
-    }
-    @media screen and (min-width: 620px){
-        top: -102px;
-    }
-    @media screen and (min-width: 1240px){
-        top: -82px;
-
-        &--open {
-            top: -110px;
-        }
-    }
+  }
 }
 
-
 @keyframes slide {
-    0% {}
-    100% { transform: translateX(-400px); }
+  0% {
+  }
+  100% {
+    transform: translateX(-400px);
+  }
 }

@@ -1,85 +1,84 @@
 .card-container {
-    height: 50%;
-    margin-top: 50px;
-    max-width: 1600px;
-    position: relative;
+  height: 50%;
+  margin-top: 50px;
+  max-width: 1600px;
+  position: relative;
 
-    &__button {
-        position: absolute;
-        right: 30px;
-        top: -50px;
-        height: 40px;
-        cursor: pointer;
-    }
-    
+  &__button {
+    position: absolute;
+    right: 30px;
+    top: -50px;
+    height: 40px;
+    cursor: pointer;
+  }
 }
 
 .container {
-    width: 100%;
-    margin: auto;
-    max-width: 1600px;
-    position: relative;
+  width: 100%;
+  margin: auto;
+  max-width: 1600px;
+  position: relative;
 }
 
 .pagination {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    margin: 20px auto;
-    padding-left: 15px;
-  }
-   
-.pagination a {
-    padding: 3px 5px;
-    border-radius: 7px;
-    border: 2px solid rgb(7,0,129);;
-    color: rgb(7,0,129);
-    cursor: pointer;
-    margin: 3px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+  padding-left: 15px;
+}
 
-    &:hover {
-        color: white;
-        background-color: rgb(38, 63, 205);
-    }
+.pagination a {
+  padding: 3px 5px;
+  border-radius: 7px;
+  border: 2px solid rgb(7, 0, 129);
+  color: rgb(7, 0, 129);
+  cursor: pointer;
+  margin: 3px;
+
+  &:hover {
+    color: white;
+    background-color: rgb(38, 63, 205);
+  }
 }
 
 .active a {
-    color: white;
-    background-color: rgb(38, 63, 205);
+  color: white;
+  background-color: rgb(38, 63, 205);
 }
 
-@media screen and (min-width: 620px){
-    .card-container{
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+@media screen and (min-width: 620px) {
+  .card-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 
-        &__button {
-            right: 100px;
-            top: -100px;
-        }
+    &__button {
+      right: 100px;
+      top: -100px;
     }
-    .pagination {
-        margin: 30px auto;
-        & a {
-            padding: 8px 12px;
-        }
+  }
+  .pagination {
+    margin: 30px auto;
+    & a {
+      padding: 8px 12px;
     }
+  }
 }
 
-@media screen and (min-width: 930px){
-    .card-container{
-        grid-template-columns: 1fr 1fr 1fr;
-    }
+@media screen and (min-width: 930px) {
+  .card-container {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }
-@media screen and (min-width: 1240px){
-    .card-container{
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        max-width: 1600px;
-        margin: 30px auto;
+@media screen and (min-width: 1240px) {
+  .card-container {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    max-width: 1600px;
+    margin: 30px auto;
 
-        &__button {
-            right: 100px;
-            top: -80px;
-        }
+    &__button {
+      right: 100px;
+      top: -80px;
     }
+  }
 }

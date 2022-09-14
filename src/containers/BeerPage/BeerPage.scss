@@ -1,135 +1,133 @@
 .beer {
-    padding: 10px;
-    text-align: center;
-    max-width: 450px;
-    margin: 30px auto;
+  padding: 10px;
+  text-align: center;
+  max-width: 450px;
+  margin: 30px auto;
 
+  &__img {
+    max-width: 300px;
+    max-height: 600px;
+  }
+
+  &__name {
+    font-size: 2.5rem;
+    color: #ff8400;
+  }
+
+  &__tagline {
+    color: gray;
+  }
+
+  &__date {
+    font-size: 1rem;
+  }
+
+  &__numbers {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  &__abv,
+  &__ph {
+    padding: 10px 20px;
+    border: 2px solid gray;
+    border-radius: 30px;
+  }
+
+  &__food {
+    padding: 10px 20px 20px 20px;
+    border: 2px solid gray;
+    border-radius: 30px;
+
+    &--heading {
+      margin: 1.3rem;
+      font-size: 1.5rem;
+    }
+
+    &--item {
+      margin: 10px;
+      font-size: 1.1rem;
+    }
+  }
+
+  &__tips {
+    margin: 40px auto;
+    font-size: 1.1rem;
+
+    &--span {
+      font-weight: bold;
+      font-size: 1.3rem;
+    }
+  }
+
+  &__bottom {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+
+  &__button {
+    padding: 25px 45px;
+    background-color: transparent;
+    font-weight: bold;
+    border-radius: 20px;
+    border: 2px solid gray;
+    font-size: 1.1rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: gray;
+      color: white;
+      border: none;
+    }
+  }
+
+  @media screen and (min-width: 1100px) {
+    width: 90vw;
+    max-width: 1400px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    &__main {
+      margin: auto;
+    }
     &__img {
-        max-width: 300px;
-        max-height: 600px;
+      margin: auto;
     }
 
     &__name {
-        font-size: 2.5rem;
-        color: #ff8400;
+      font-size: 3.5rem;
     }
 
     &__tagline {
-        color: gray;
+      font-size: 1.7rem;
+    }
+
+    &__description {
+      font-size: 1.3rem;
     }
 
     &__date {
-        font-size: 1rem;
+      font-size: 1.1rem;
     }
 
-    &__numbers {
-        display: flex;
-        justify-content: space-around;
-    }
-
-    &__abv,
-    &__ph {
-        padding: 10px 20px;
-        border: 2px solid gray;
-        border-radius: 30px;
-    }
-
-    &__food {
-        padding: 10px 20px 20px 20px;
-        border: 2px solid gray;
-        border-radius: 30px;
-
-        &--heading {
-            margin: 1.3rem;
-            font-size: 1.5rem;
-        }
-
-        &--item {
-            margin: 10px;
-            font-size: 1.1rem;
-        }
+    &__food,
+    &__tips {
+      padding: 0;
+      border: 3px solid gray;
+      border-radius: 20px;
+      height: 200px;
+      margin: 40px 40px;
     }
 
     &__tips {
-        margin: 40px auto;
-        font-size: 1.1rem;
-        
-        &--span {
-            font-weight: bold;
-            font-size: 1.3rem;
-        }
-    }
-
-    &__bottom {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        margin-bottom: 40px;
+      align-items: center;
+      padding: 0 20px;
     }
 
     &__button {
-        padding: 25px 45px;
-        background-color: transparent;
-        font-weight: bold;
-        border-radius: 20px;
-        border: 2px solid gray;
-        font-size: 1.1rem;
-        cursor: pointer;
-
-        &:hover {
-            background-color: gray;
-            color: white;
-            border: none;
-        }
+      column-span: all;
     }
-
-    @media screen and (min-width: 1100px) {
-        width: 90vw;
-        max-width: 1400px;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-
-        &__main {
-            margin: auto;
-        }
-        &__img {
-            margin: auto;
-        }
-
-        &__name {
-            font-size: 3.5rem;
-        }
-
-        &__tagline {
-            font-size: 1.7rem;
-        }
-
-        &__description {
-            font-size: 1.3rem;
-        }
-
-        &__date {
-            font-size: 1.1rem;
-        }
-
-        &__food,
-        &__tips {
-            padding: 0;
-            border: 3px solid gray;
-            border-radius: 20px;
-            height: 200px;
-            margin: 40px 40px;
-        }
-
-        &__tips {
-            align-items: center;
-            padding: 0 20px;
-        }
-
-        &__button {
-            column-span: all;
-        }
-    }
+  }
 }
-
-
