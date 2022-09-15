@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom"
 //style
 import "./BeerPage.scss"
 
-const BeerDetails = () => {
+const BeerPage = () => {
 
   const { id } = useParams();
   const [beer, setBeer] = useState();
@@ -56,4 +56,4 @@ const BeerDetails = () => {
   )
 }
 
-export default BeerDetails
+export default BeerPage
