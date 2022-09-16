@@ -90,7 +90,7 @@ Will become: "A titillating, neurotic, peroxide punk of a Pale Ale. Combining at
 
 
 ## ⛏️ Built Using <a name = "built_using"></a>
-React, JSX, CSS, SCSS, BEMChce
+React, JSX, CSS, SCSS, BEM
 
 ## ✍️ Author <a name = "authors"></a>
 - [@DorBia](https://github.com/DorBia)
