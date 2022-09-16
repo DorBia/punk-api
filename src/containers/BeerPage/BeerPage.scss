@@ -1,3 +1,5 @@
+@use "../../assets/sass/variables" as *;
+
 .beer {
   padding: 10px;
   text-align: center;
@@ -15,7 +17,7 @@
   }
 
   &__tagline {
-    color: gray;
+    color: $color-text-third;
   }
 
   &__date {
@@ -30,13 +32,13 @@
   &__abv,
   &__ph {
     padding: 10px 20px;
-    border: 2px solid gray;
+    border: 2px solid $color-text-third;
     border-radius: 30px;
   }
 
   &__food {
     padding: 10px 20px 20px 20px;
-    border: 2px solid gray;
+    border: 2px solid $color-text-third;
     border-radius: 30px;
 
     &--heading {
@@ -72,13 +74,13 @@
     background-color: transparent;
     font-weight: bold;
     border-radius: 20px;
-    border: 2px solid gray;
+    border: 2px solid $color-text-third;
     font-size: 1.1rem;
     cursor: pointer;
 
     &:hover {
-      background-color: gray;
-      color: white;
+      background-color: $color-text-third;
+      color: $color-text-secondary;
       border: none;
     }
   }
@@ -115,7 +117,7 @@
     &__food,
     &__tips {
       padding: 0;
-      border: 3px solid gray;
+      border: 3px solid $color-text-third;
       border-radius: 20px;
       height: 200px;
       margin: 40px 40px;

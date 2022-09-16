@@ -3,9 +3,9 @@ import "./FiltersList.scss"
 const FiltersList = ({handleFilter}) => {
   
   return (
-    <label> 
-      <span>Filter</span> 
-      <select onChange={handleFilter} className="filter-list">
+    <label className="dropdown-list"> 
+      <span className="dropdown-list__span">Filter: </span> 
+      <select onChange={handleFilter} className="dropdown-list__dropdown">
         <option value="">All</option>
         <option value="abv-high">High Alcohol</option>
         <option value="abv-low">Low Alcohol</option>

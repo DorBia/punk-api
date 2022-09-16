@@ -1,3 +1,5 @@
+@use "../../assets/sass/variables" as *;
+
 .card-container {
   height: 50%;
   margin-top: 50px;
@@ -25,32 +27,45 @@
   display: flex;
   justify-content: center;
   margin: 20px auto;
-  padding-left: 15px;
-}
+  padding-left: 10px;
 
-.pagination a {
-  padding: 3px 5px;
-  border-radius: 7px;
-  border: 2px solid rgb(7, 0, 129);
-  color: rgb(7, 0, 129);
-  cursor: pointer;
-  margin: 3px;
+  & a {
+    padding: 3px 5px;
+    border-radius: 7px;
+    border: 2px solid $color-pagination-primary;
+    color: $color-pagination-primary;
+    cursor: pointer;
+    margin: 2px;
+  
+    &:hover {
+      color: $color-text-secondary;
+      background-color: $color-pagination-secondary;
+    }
+  }
 
-  &:hover {
-    color: white;
-    background-color: rgb(38, 63, 205);
+  & .active a {
+    color: $color-text-secondary;
+    background-color: $color-pagination-secondary;
+  }
+  
+  & .disabled  a{
+    color: $color-pagination-third;
+    background-color: $color-background-primary;
+    border: $color-pagination-third 2px solid;
+    cursor: default;
+  
+    &:hover {
+      color: $color-pagination-third;
+      background-color: $color-background-primary;
+    }
   }
 }
 
-.active a {
-  color: white;
-  background-color: rgb(38, 63, 205);
-}
 
 @media screen and (min-width: 620px) {
   .card-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
 
     &__button {
       right: 100px;
@@ -67,12 +82,12 @@
 
 @media screen and (min-width: 930px) {
   .card-container {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 @media screen and (min-width: 1240px) {
   .card-container {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
     max-width: 1600px;
     margin: 30px auto;
 

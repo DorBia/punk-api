@@ -1,5 +1,24 @@
-.filter-list {
-  padding: 8px;
-  border-radius: 10px;
-  width: 80%;
+.dropdown-list {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  &__dropdown {
+    padding: 8px;
+    border-radius: 10px;
+    width: 60%;
+    margin-left: 5px;
+  }
+
+  &__span {
+    font-size: 1.15rem;
+    font-weight: bold;
+  }
+
+  @media screen and (min-width: 800px) {
+    width: 75%;
+    justify-content: space-around;
+  }
+
 }

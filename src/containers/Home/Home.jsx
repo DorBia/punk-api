@@ -137,6 +137,7 @@ const Home = () => {
             nextLinkClassName={"next"}
             onPageChange={(e) => setPage(e.selected)}
             activeClassName={"active"}
+            disabledClassName={"disabled"}
           />
       </>}
     </div>
