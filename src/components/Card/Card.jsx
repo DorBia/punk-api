@@ -21,7 +21,7 @@ const Card = ({ beer, isSummerTheme }) => {
       </div>
       <div className="card__content">
         <h3 className={name.split(" ").length > 2 ? "card__heading long" : "card__heading short"}>{name}</h3>
-        <p className="card__description">{newDescription}</p>
+        <p className="card__description" data-testid="description">{newDescription}</p>
         <section className="card__bottom">
           <p className="card__abv">Alc {abv}%</p>
           <Link to={`/beer/${id}`}>
