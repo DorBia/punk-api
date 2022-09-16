@@ -1,70 +1,97 @@
-# Getting Started with Create React App
+<p align="center">
+  <a href="" rel="noopener">
+ <img width=300px height=150px src="./src/assets/screenshots/logo.png" alt="Project logo"></a>
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h2 align="center">Punk API Website</h2>
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+<p align="center"> Just a simple website to list BrewDog beers.
+    <br> 
+</p>
 
+## 📝 Table of Contents
+
+- [About](#about)
+- [Getting Started](#getting_started)
+- [Running Tests](#tests)
+- [Usage](#usage)
+- [Screenshots](#screenshots)
+- [Built Using](#built_using)
+- [Authors](#authors)
+
+## 🧐 About <a name = "about"></a>
+
+Simple website to list BrewDog beers by using the [Punk API](https://punkapi.com). It has main page with all 325 beers listed, which you can search through, filter and sort at the same time. As well as change the theme from blue to orange. It also has a single page for each beer, that will show you more information about the beer. Everything is fully responsive. 
+<br>  <br> 
+
+## 🛠 Getting Started <a name = "getting_started"></a>
+
+You can either go to [this site](https://dorbia.github.io/punk-api/#/) and it will work in your browser without having to do anything, or if you want to have it in your localhost, you can continue reading, to find out what to do.
+
+To open the website in your localhost you need to download the repo, and then open terminal in the repo's folder. Run the following command: 
+### `npm install`
+to make it install every node modules you will need - npm will find it on it's own thanks to the dependencies. Once it's installed, you can run the command:
 ### `npm start`
+and the app will be ready to see on the server.
 
-Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<br> 
 
+## 🔧 Running the tests <a name = "tests"></a>
+
+To run tests, run the following command:
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Break down into tests
+I have tested things, what don't require API fetch, to check if they are in the document on the render.
 
-### `npm run build`
+I have also tested if the user clicks on the theme change button, the theme icon is supposed to change.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+Example: clicking the sun icon should change it to the snowflake icon, and other way around.
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+As well as checking if the description will get shortened if it's above 120 characters.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+Example: "A titillating, neurotic, peroxide punk of a Pale Ale. Combining attitude, style, substance, and a little bit of low self esteem for good measure; what would your mother say? The seductive lure of the sassy passion fruit hop proves too much to resist. All that is even before we get onto the fact that there are no additives, preservatives, pasteurization or strings attached. All wrapped up with the customary BrewDog bite and imaginative twist."
 
-### `npm run eject`
+Will become: "A titillating, neurotic, peroxide punk of a Pale Ale. Combining attitude, style, substance, and a little bit of low self ..."
+```
+<br> 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🎈 Usage <a name="usage"></a>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- After going to [this site](https://dorbia.github.io/punk-api/#/) everything will render for you automatically.
+- To change the theme, click on the sun/snowflake icon.
+- To search, filter or sort beers, click on the hamburger menu icon in the top right corner and it will bring up the menu for you. The order of sorting/searching/filtering does not matter, it will work the same way each time. Use the dropdowns to sort/filter and textbox to search. To close the menu click on the "x" button or go to the single page and it will disappear.
+- To go to the beer details page, click on the more info or type in the search bar https://dorbia.github.io/punk-api/#/beer/1 - you can change the 1 to a number you want from 1 to 325.
+- To go back to the main page, click on the "Go Back" button, which is on the bottom of the page/the logo in the top-left corner or go to this link again: https://dorbia.github.io/punk-api/#/
+- When being in the main page, to change the page, click on the number of the page you want to go to or the Next/Previous buttons - which are disabled when there is no previous/next page to go to.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+<br> 
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 📸 Screenshots <a name = "screenshots"></a>
+<div align="center">
+  <h2>Mobile</h2>
+    <img width=200px height=400px src="./src/assets/screenshots/Mobile-no-menu.png" alt="Mobile without menu">
+    <img width=200px height=400px src="./src/assets/screenshots/Mobile-menu-orange.png" alt="Mobile with menu and summer theme">
+    <img width=200px height=400px src="./src/assets/screenshots/Mobile-singe-page.png" alt="Mobile single page top">
+    <img width=200px height=400px src="./src/assets/screenshots/Mobile-single-page-bottom.png" alt="Mobile single page bottom">
 
-## Learn More
+  <h2>Desktop</h2>
+    <img width=500px height=400px src="./src/assets/screenshots/Desktop-all-summer.png" alt="Desktop summer theme without menu">
+    <img width=500px height=400px src="./src/assets/screenshots/Desktop-all-winter-menu.png" alt="Desktop winter theme with menu">
+    <img width=500px height=400px src="./src/assets/screenshots/Desktop-single-beer.png" alt="Desktop single beer page">
+</div>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## ⛏️ Built Using <a name = "built_using"></a>
+React, JSX, CSS, SCSS, BEMChce
 
-### Code Splitting
+## ✍️ Author <a name = "authors"></a>
+- [@DorBia](https://github.com/DorBia)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
